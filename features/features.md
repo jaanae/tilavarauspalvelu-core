@@ -34,9 +34,9 @@ John Sportssecretary
             and talk bout weather during this activity 
     * John fills in ### organisation information for oulunkylän pallo
     * John sends the application
-    * Then he sees that their application for activities for their 12 year olds
-    on tuesday 10-14 or on thursdays 14-17 is due to being processed on  
-    
+    * Then he sees that their application for activities for their 12 years old
+     and their seniors is due to being processed in two weeks
+        
 ### Feature: Managing organisation information
 * John wants to set the organisation for their application
     * John fills Oulynkylän Pallo as their organisation name
@@ -55,7 +55,7 @@ John Sportssecretary
 
 ## Models
 
-### Application
+### Application (hakemus)
 |Field   |Mandatory   |Rules|Model|
 |---|---|---|---|
 |Application period   |true   |   |ApplicationPeriod|
@@ -63,7 +63,7 @@ John Sportssecretary
 |Spaces   |true   |   |1..* Space|
 |Events   |   |   |0..* ApplicationEvent|
 
-### ApplicationEvent
+### ApplicationEvent (vuoro)
 |Field   |Mandatory   |Rules|Model|
 |---|---|---|---|
 |Number of persons   |false   |   ||
@@ -72,23 +72,26 @@ John Sportssecretary
 |Ability group   |false   |   |AbilityGroup|
 |Ability group   |false   |   |AbilityGroup|
 |Application   |true   |   |Application|
-|Time   |true   |Must fit|Recurrence|
+|Times   |true   ||1..* Recurrence|
+|Number of persons   |true   |||
+|Duration   |true   |||
 
-### Recurrence
+### Recurrence (vuoron aika)
 |Field   |Mandatory   |Rules|Model|
 |---|---|---|---|
 |Application event   |true   |   |ApplicationEvent|
-|Starting   |true   |Must be between the start and end of the Application period reservation period||
-|Ending   |true   |Must be between the start and end of the Application period reservation period||
-|Age group   |false   |   |AgeGroup|
-|Ability group   |false   |   |AbilityGroup|
-|Ability group   |false   |   |AbilityGroup|
-|Time   |true   |   |Recurrence|
+|Starting   |true   |Must be between the start and end of the Application period reservation period|date|
+|Ending   |true   |Must be between the start and end of the Application period reservation period|date|
+|Date of week   |true   |   ||
+|start time   |true   |   |time|
+|end time   |true   |   |time|
+|priority   |false   |default medium||
 
-
-### Organisation
+### Organisation (hakija)
 |Field   |Mandatory   |Rules|Model  |
 |---|---|---|---|
 |Y tunnus   |true   |||
 |Name|true   |  |   |
+|Year established|false   |  |   |
+|Address|true   |  |Address|
 |Contact person|true   |    |Person|

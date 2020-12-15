@@ -15,7 +15,7 @@ django-filter==2.4.0
 django-js-asset==1.2.2
 django-mptt==0.11.0
 django-recurrence==1.10.3
-djangorestframework==3.11.1
+djangorestframework==3.12.2
 flake8==3.8.4
 graphene==2.1.8
 graphene-django==2.13.0
@@ -41,6 +41,7 @@ pytest-cov==2.10.1
 pytest-django==4.1.0
 python-dateutil==2.8.1
 pytz==2020.1
+pyyaml==5.3.1
 regex==2020.10.28
 Rx==1.6.1
 sentry-sdk==0.19.5
@@ -51,6 +52,7 @@ toml==0.10.1
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
 Unidecode==1.1.1
+uritemplate==3.0.1
 urllib3==1.26.2
 uWSGI==2.0.19.1
 whitenoise==5.2.0

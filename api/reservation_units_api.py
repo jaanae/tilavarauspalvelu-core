@@ -1,5 +1,6 @@
 from django.db.models import Sum
 from django_filters import rest_framework as filters
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import filters as drf_filters
 from rest_framework import serializers, viewsets
 
@@ -22,13 +23,16 @@ class ReservationUnitFilter(filters.FilterSet):
         field_name="purposes", queryset=Purpose.objects.all()
     )
     application_period = filters.ModelMultipleChoiceFilter(
-        field_name="application_periods", queryset=ApplicationPeriod.objects.all()
+        field_name="application_periods",
+        queryset=ApplicationPeriod.objects.all(),
     )
     district = HierarchyModelMultipleChoiceFilter(
         field_name="spaces__district", queryset=District.objects.all()
     )
     max_persons = filters.NumberFilter(
-        field_name="spaces__max_persons", lookup_expr="lte"
+        field_name="spaces__max_persons",
+        lookup_expr="lte",
+        label="Find units with max_persons less than or equal to this number.",
     )
     reservation_unit_type = filters.ModelChoiceFilter(
         field_name="reservation_unit_type", queryset=ReservationUnitType.objects.all()
@@ -53,7 +57,9 @@ class ReservationUnitSerializer(serializers.ModelSerializer):
     services = ServiceSerializer(read_only=True, many=True)
     images = ReservationUnitImageSerializer(read_only=True, many=True)
     location = serializers.SerializerMethodField()
-    max_persons = serializers.SerializerMethodField()
+    max_persons = serializers.SerializerMethodField(
+        help_text="Example of description for a field that is explicitly declared in the serializer class."
+    )
     building = serializers.SerializerMethodField()
     reservation_unit_type = ReservationUnitTypeSerializer(read_only=True)
 
@@ -72,6 +78,11 @@ class ReservationUnitSerializer(serializers.ModelSerializer):
             "reservation_unit_type",
             "building",
         ]
+        extra_kwargs = {
+            "require_introduction": {
+                "help_text": "Example of description for a field that is not explicitly declared in the serializer class.",
+            }
+        }
 
     def get_building(self, reservation_unit):
         building = reservation_unit.get_building()
@@ -87,10 +98,16 @@ class ReservationUnitSerializer(serializers.ModelSerializer):
 
         return None
 
-    def get_max_persons(self, reservation_unit):
+    def get_max_persons(self, reservation_unit) -> int:
         return reservation_unit.get_max_persons()
 
 
+@extend_schema(
+    description="This is an example of a common description for all views in the viewset."
+)
+@extend_schema_view(
+    list=extend_schema(description="This is a list-endpoint specific description."),
+)
 class ReservationUnitViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationUnitSerializer
     filter_backends = [

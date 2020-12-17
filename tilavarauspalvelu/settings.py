@@ -16,6 +16,7 @@ import subprocess
 
 import environ
 import sentry_sdk
+from django.utils.translation import ugettext_lazy as _
 from sentry_sdk.integrations.django import DjangoIntegration
 
 logger = logging.getLogger("settings")
@@ -74,6 +75,7 @@ INSTALLED_APPS = [
     "mptt",
     "django_filters",
     "corsheaders",
+    "modeltranslation",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,9 @@ env = environ.Env(
     CORS_ALLOWED_ORIGINS=(list, []),
 )
 environ.Env.read_env()
+
+LANGUAGE_CODE = "fi"
+LANGUAGES = (("fi", _("Finnish")), ("en", _("English")), ("sv", _("Swedish")))
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 DEBUG = env("DEBUG")

@@ -1,6 +1,6 @@
 # Dockerfile for Tilavarauspalvelu backend
 
-FROM registry.redhat.io/ubi8/python-38 as appbase
+FROM registry.access.redhat.com/ubi8/python-38 as appbase
 
 USER root
 RUN yum clean all

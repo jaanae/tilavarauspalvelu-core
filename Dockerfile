@@ -1,10 +1,10 @@
 # Dockerfile for Tilavarauspalvelu backend
 
-FROM registry.access.redhat.com/ubi8/python-38 as appbase
+FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
 
-RUN subscription-manager repos --list
+RUN yum list all
 
 
 #RUN yum update

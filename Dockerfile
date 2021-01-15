@@ -8,6 +8,18 @@ USER root
 #RUN yum repolist enabled
 #RUN yum-config-manager –enable
 
+# Delete /etc/rhsm-host to use entitlements from the build container
+RUN rm /etc/rhsm-host && \
+    # Initialize /etc/yum.repos.d/redhat.repo
+    # See https://access.redhat.com/solutions/1443553
+    yum repolist --disablerepo=* && \
+    subscription-manager repos --enable <enabled-repo> && \
+    yum -y update && \
+    yum -y install <rpms> && \
+    # Remove entitlements and Subscription Manager configs
+    rm -rf /etc/pki/entitlement && \
+    rm -rf /etc/rhsm
+
 #RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11

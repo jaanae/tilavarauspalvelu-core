@@ -3,8 +3,13 @@
 FROM registry.access.redhat.com/ubi8/python-38 as appbase
 
 USER root
+
 RUN yum clean all
-RUN yum update
+RUN yum repolist enabled
+RUN yum-config-manager --enable rhel-8-server-optional-rpms
+
+
+#RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11
 RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm

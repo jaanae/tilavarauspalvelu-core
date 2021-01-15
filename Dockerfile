@@ -4,9 +4,9 @@ FROM registry.access.redhat.com/ubi8/python-38 as appbase
 
 USER root
 
-RUN yum clean all
-RUN yum repolist enabled
-RUN yum-config-manager –enable
+#RUN yum clean all
+#RUN yum repolist enabled
+#RUN yum-config-manager –enable
 
 #RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm

@@ -7,10 +7,9 @@ USER root
 #RUN yum clean all
 #RUN yum repolist enabled
 #RUN yum-config-manager –enable
-
-# Delete /etc/rhsm-host to use entitlements from the build container
+RUN yum repolist all
 RUN yum repolist --disablerepo=*
-RUN subscription-manager repos --enable *
+RUN subscription-manager repos --enable 
 RUN yum -y update 
 
 

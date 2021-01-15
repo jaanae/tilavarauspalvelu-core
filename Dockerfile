@@ -4,13 +4,7 @@ FROM registry.access.redhat.com/ubi8/python-38 as appbase
 
 USER root
 
-#RUN yum clean all
-#RUN yum repolist enabled
-#RUN yum-config-manager –enable
-RUN yum repolist all
-RUN yum repolist --disablerepo=*
-RUN subscription-manager repos --enable 
-RUN yum -y update 
+RUN subscription-manager repos --list
 
 
 #RUN yum update

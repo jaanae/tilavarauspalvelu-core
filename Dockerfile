@@ -6,8 +6,7 @@ USER root
 
 RUN yum clean all
 RUN yum repolist enabled
-RUN yum-config-manager --enable rhel-8-server-optional-rpms
-
+RUN yum-config-manager –enable
 
 #RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
@@ -37,7 +36,7 @@ COPY deploy/* ./deploy/
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN yum install -y gdal 
+#RUN yum install -y gdal 
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi
 

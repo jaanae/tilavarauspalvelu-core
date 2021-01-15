@@ -1,6 +1,6 @@
 # Dockerfile for Tilavarauspalvelu backend
 
-FROM registry.access.redhat.com/ubi8/python-38 as appbase
+FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
@@ -30,7 +30,7 @@ COPY deploy/* ./deploy/
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf install -y gdal
+RUN yum install -y gdal 
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi
 

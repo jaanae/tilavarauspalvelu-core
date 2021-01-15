@@ -30,7 +30,7 @@ COPY deploy/* ./deploy/
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN yum install -y gdal
+RUN dnf install -y gdal
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi
 

@@ -5,6 +5,7 @@ FROM registry.redhat.io/ubi8/python-38 as appbase
 USER root
 
 RUN yum list all
+RUN yum install subscription-manager
 
 #RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm

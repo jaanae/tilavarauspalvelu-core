@@ -14,7 +14,6 @@ RUN yum -y update
 RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN yum config-manager --set-enabled powertools
 RUN subscription-manager remove --all
 
 RUN yum install dnf-plugins-core
@@ -50,7 +49,7 @@ COPY deploy/* ./deploy/
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
-
+RUN yum config-manager --set-enabled powertools
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum install -y gdal 
 

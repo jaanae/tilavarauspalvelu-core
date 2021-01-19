@@ -6,6 +6,7 @@ USER root
 
 RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 RUN sed -i 's/1/0/g' /etc/yum/pluginconf.d/subscription-manager.conf 
+RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 
 #RUN yum list all
 RUN yum install subscription-manager
@@ -40,7 +41,6 @@ COPY deploy/* ./deploy/
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
-RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum install -y gdal 

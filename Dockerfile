@@ -4,17 +4,17 @@ FROM registry.access.redhat.com/ubi8/python-38 as appbase
 
 USER root
 
-COPY ./etc-pki-entitlement /etc/pki/entitlement
+#COPY ./etc-pki-entitlement /etc/pki/entitlement
 
-RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
+#RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 
-RUN rm /etc/rhsm-host
-RUN yum repolist --disablerepo=*
-RUN yum -y update
-RUN echo ${REDHAT_PASSWORD}
-RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
-RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN subscription-manager remove --all
+#RUN rm /etc/rhsm-host
+#RUN yum repolist --disablerepo=*
+#RUN yum -y update
+#RUN echo ${REDHAT_PASSWORD}
+#RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
+#RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+#RUN subscription-manager remove --all
 
 RUN yum install dnf-plugins-core
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
@@ -50,7 +50,7 @@ COPY deploy/* ./deploy/
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf config-manager --set-enabled rhui-codeready-builder-for-rhel-8-rhui-rpms
+RUN dnf config-manager --set-enabled codeready-builder-for-rhel-8-rhui-rpms
 RUN yum install -y gdal 
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi

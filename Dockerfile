@@ -10,7 +10,7 @@ RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.c
 
 RUN rm /etc/rhsm-host
 RUN yum repolist --disablerepo=*
-#RUN yum -y update
+RUN yum -y update
 RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
@@ -19,7 +19,6 @@ RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
-
 
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm

@@ -6,6 +6,9 @@ USER root
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 
+
+RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
+
 RUN rm /etc/rhsm-host && \
     # Initialize /etc/yum.repos.d/redhat.repo
     # See https://access.redhat.com/solutions/1443553
@@ -15,13 +18,14 @@ RUN rm /etc/rhsm-host && \
     # Remove entitlements and Subscription Manager configs
     rm -rf /etc/pki/entitlement && \
     rm -rf /etc/rhsm
-    
+   
+
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
 
-#RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach
+
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11

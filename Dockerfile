@@ -6,13 +6,23 @@ USER root
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 
-RUN rm /etc/rhsm-host
+RUN rm /etc/rhsm-host && \
+    # Initialize /etc/yum.repos.d/redhat.repo
+    # See https://access.redhat.com/solutions/1443553
+    yum repolist --disablerepo=* && \
+    subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms  && \
+    yum -y update && \
+    yum -y install <rpms> && \
+    # Remove entitlements and Subscription Manager configs
+    rm -rf /etc/pki/entitlement && \
+    rm -rf /etc/rhsm
+    
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
 
-RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach
+#RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11
@@ -42,7 +52,6 @@ RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USER
 
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 RUN yum install -y gdal 
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi

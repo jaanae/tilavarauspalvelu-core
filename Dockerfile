@@ -12,7 +12,6 @@ RUN rm /etc/rhsm-host && \
     yum repolist --disablerepo=* && \
     subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms  && \
     yum -y update && \
-    yum -y install <rpms> && \
     # Remove entitlements and Subscription Manager configs
     rm -rf /etc/pki/entitlement && \
     rm -rf /etc/rhsm

@@ -6,19 +6,11 @@ USER root
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 
-
+RUN rm /etc/rhsm-host
+RUN yum repolist --disablerepo=*
+RUN yum -y update && 
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
-
-RUN rm /etc/rhsm-host && \
-    # Initialize /etc/yum.repos.d/redhat.repo
-    # See https://access.redhat.com/solutions/1443553
-    yum repolist --disablerepo=* && \
-    subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms  && \
-    yum -y update && \
-    # Remove entitlements and Subscription Manager configs
-    rm -rf /etc/pki/entitlement && \
-    rm -rf /etc/rhsm
-   
+RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 

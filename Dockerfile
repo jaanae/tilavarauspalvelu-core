@@ -6,17 +6,11 @@ USER root
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 
-#RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
-
 RUN rm /etc/rhsm-host
 RUN yum repolist --enablerepo=*
 RUN yum -y update
-#RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN yum list
-RUN yum install dnf-plugins-core
-RUN yum config-manager --set-enabled powertools
 #RUN subscription-manager repos --list
 #RUN subscription-manager remove --all
 
@@ -55,7 +49,6 @@ RUN yum install -y gdal
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/unregister_local.sh ; fi
 
 RUN npm install @sentry/cli
-
 
 # Can be used to inquire about running app
 # eg. by running `echo $APP_NAME`

@@ -4,6 +4,8 @@ FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
 
+RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
+
 RUN yum list all
 RUN yum install subscription-manager
 

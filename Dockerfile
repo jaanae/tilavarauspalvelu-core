@@ -14,8 +14,7 @@ RUN yum -y update
 #RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN subscription-manager repos --list-all
-RUN dnf upgrade
+RUN subscription-manager repos --list
 RUN subscription-manager remove --all
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm

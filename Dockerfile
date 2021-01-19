@@ -15,6 +15,9 @@ RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 
+RUN sed -i 's/enabled=0/enabled=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
+
+
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 

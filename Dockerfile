@@ -6,7 +6,7 @@ USER root
 
 RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 
-RUN yum list all
+#RUN yum list all
 RUN yum install subscription-manager
 
 

@@ -8,7 +8,7 @@ COPY ./etc-pki-entitlement /etc/pki/entitlement
 
 RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 RUN yum install dnf-plugins-core
-RUN yum config-manager --set-enabled powertools
+RUN dnf config-manager --set-enabled powertools
 
 RUN yum repolist --disablerepo=*
 RUN yum -y update

@@ -5,9 +5,12 @@ FROM registry.redhat.io/ubi8/python-38 as appbase
 USER root
 
 RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
+RUN sed -i 's/1/0/g' /etc/yum/pluginconf.d/subscription-manager.conf 
 
 #RUN yum list all
 RUN yum install subscription-manager
+
+#RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
 
 
 #RUN yum update

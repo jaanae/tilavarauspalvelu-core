@@ -4,9 +4,9 @@ FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
 
-RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
-RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
-RUN yum install -y yum-utils 
+#RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
+#RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
+#RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 
@@ -38,7 +38,7 @@ COPY deploy/* ./deploy/
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
-RUN yum-config-manager --enable codeready-builder-for-rhel-8-x86_64-rpms
+#RUN yum-config-manager --enable codeready-builder-for-rhel-8-x86_64-rpms
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum install -y gdal 
 

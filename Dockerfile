@@ -49,6 +49,7 @@ COPY deploy/* ./deploy/
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
+RUN dnf repolist
 RUN yum config-manager --set-enabled powertools
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum install -y gdal 

@@ -14,7 +14,7 @@ RUN yum -y update
 #RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN subscription-manager repos --list-enabled
+RUN subscription-manager repos --list-enabled –no-cache
 RUN dnf upgrade
 RUN subscription-manager remove --all
 

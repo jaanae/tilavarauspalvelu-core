@@ -16,6 +16,7 @@ RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo
 RUN yum -y install postgresql11
 RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum -y install epel-release
+RUN yum install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms gdal
 
 RUN useradd -ms /bin/bash -d /tvp tvp
 # Statics are kept inside container image for serving using whitenoise

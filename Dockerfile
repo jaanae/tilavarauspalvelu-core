@@ -8,13 +8,13 @@ COPY ./etc-pki-entitlement /etc/pki/entitlement
 
 RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 RUN yum install dnf-plugins-core
-RUN yum config-manager --set-enabled PowerTools
 
 RUN yum repolist --disablerepo=*
 RUN yum -y update
 RUN echo ${REDHAT_PASSWORD}
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+RUN yum config-manager --set-enabled PowerTools
 RUN subscription-manager remove --all
 RUN rm /etc/rhsm-host
 

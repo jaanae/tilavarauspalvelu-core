@@ -8,11 +8,11 @@ COPY ./etc-pki-entitlement /etc/pki/entitlement
 
 RUN rm /etc/rhsm-host
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
-#RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
+RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
 
-#RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
+RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11

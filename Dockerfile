@@ -4,11 +4,11 @@ FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
 
-#RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
-#RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
+RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
+RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
 #RUN yum install -y yum-utils 
 #RUN sed -i 's/disable_system_repos=0/disable_system_repos=1/' /etc/yum/pluginconf.d/subscription-manager.conf 
-#RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
+RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 
 #RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
 

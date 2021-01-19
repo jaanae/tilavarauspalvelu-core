@@ -6,6 +6,8 @@ USER root
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 
+RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 
+
 RUN rm /etc/rhsm-host
 RUN yum repolist --disablerepo=*
 RUN yum -y update

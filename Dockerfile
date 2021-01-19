@@ -8,13 +8,8 @@ RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 RUN sed -i 's/1/0/g' /etc/yum/pluginconf.d/subscription-manager.conf 
 RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 
-#RUN yum list all
-RUN yum install subscription-manager
-
 #RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${PASSWORD} --auto-attach
 
-
-#RUN yum update
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11
 RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm

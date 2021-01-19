@@ -40,7 +40,7 @@ RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USER
 
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN yum --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms
+RUN yum install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms
 RUN yum repolist
 RUN yum install -y gdal 
 

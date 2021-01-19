@@ -3,6 +3,9 @@
 FROM registry.redhat.io/ubi8/python-38 as appbase
 
 USER root
+
+COPY ./etc-pki-entitlement /etc/pki/entitlement
+
 RUN rm /etc/rhsm-host
 #RUN cat /etc/yum/pluginconf.d/subscription-manager.conf
 #RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf 

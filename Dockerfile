@@ -11,8 +11,7 @@ RUN yum repolist --enablerepo=*
 RUN yum -y update
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-#RUN subscription-manager repos --list
-#RUN subscription-manager remove --all
+RUN subscription-manager remove --all
 
 RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 RUN yum -y install postgresql11
@@ -41,8 +40,6 @@ COPY deploy/* ./deploy/
 
 RUN if [ "x$BUILD_MODE" = "xlocal" ] ; then ./deploy/local_deps.sh ${REDHAT_USERNAME} ${REDHAT_PASSWORD}; fi
 
-RUN yum install dnf-plugins-core
-RUN yum config-manager --set-enabled powertools
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum install -y gdal 
 

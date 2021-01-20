@@ -11,10 +11,14 @@ RUN yum repolist --enablerepo=*
 RUN yum -y update
 RUN subscription-manager register --username jaana.embrich-hakala@ibm.com --password ${REDHAT_PASSWORD} --auto-attach 
 RUN subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-RUN subscription-manager remove --all
+#RUN subscription-manager remove --all
 
-RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-RUN yum -y install postgresql11
+RUN dnf install https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+RUN dnf update
+RUN dnf install postgresql11-server postgresql11 postgresql11-contrib
+
+#RUN rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+#RUN yum -y install postgresql11
 RUN rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN yum -y install epel-release
 
